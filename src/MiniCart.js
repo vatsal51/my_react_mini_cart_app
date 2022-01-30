@@ -17,8 +17,7 @@ function MiniCart({ setProducts, products, item, cost }) {
                  
                 <div key={product.id} className="miniCart_products_wrapper">
                   <div className="miniCart_products">
-                    <img src={Cross} className="svg-cross" onClick={() => deleteProduct(product.id)}></img>
-                  {/* <button onClick={() => deleteProduct(product.id)}>x</button> */}
+                    <img src={Cross} className="svg-cross" alt="delete icon" onClick={() => deleteProduct(product.id)}></img>
                     <span>{product.title}</span>   
                   <span style={{fontWeight:"bold"}}>{product.currency} {product.price}</span>
                   <span className="quantity">Qty:{product.quantity}</span>

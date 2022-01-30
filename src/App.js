@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import MiniCart from "./MiniCart";
 import cart from "./delivery-cart-svgrepo-com.svg";
 import product2 from "./ad-product-svgrepo-com.svg";
+import minus from "./minus-svgrepo-com.svg";
+import plus from "./plus-svgrepo-com.svg";
+
 import "./App.css";
 export default function App() {
   const [products, setProducts] = useState([]);
@@ -62,50 +65,32 @@ export default function App() {
   });
   return (
     <div className="ProductContainer">
+      <header>
       <h1>Products</h1>
       <div className="cart-header">
         <span style={{fontWeight:"bold"}}> {curr}{cost} </span>
         <span>{item}&nbsp; items</span>
         <img className="svg-size" src={cart} alt="cart" onClick={ToggleCart} ></img>
       </div>
-
-      {visible ? (
-        <MiniCart
-          products={products}
-          setProducts={setProducts}
-          cost={cost}
-          item={item}
-        />
-      ) : (
-        ""
-      )}
+      {visible ? ( <MiniCart products={products} setProducts={setProducts} cost={cost} item={item} /> ) : ( "" )}
+      </header>
 
 
-      <div>
+      <div className="cart_products_container">
         {products.map((product) => {
           return (
-            <div key={product.id}>
-              <span>
-                <img
-                  src={product2}
-                  lt="product"
-                  className="svg-size"
-                  alt="product"
-                ></img>
-              </span>
-              <span>{product.title}</span>
-              <span>{product.desc}</span>
-              <button onClick={() => decrementCounter(product)}> - </button>
-              <input
-                className="inp-box"
-                type="text"
-                value={product.quantity}
-              ></input>
-              <button onClick={() => incrementCounter(product)}> + </button>
-              <span>
-                {product.currency}
-                {product.price}
-              </span>
+            <div key={product.id} className="cart_products">
+              <span> <img src={product2} className="svg-size" alt="product" ></img> </span>
+              <span className="cart_product_title">
+               <div>{product.title}</div>
+               <div>{product.desc}</div>  
+               </span>
+               <div style={{display:"flex"}}>
+              <img src={minus} alt="minus symbol" onClick={() => decrementCounter(product)}></img>
+              <input className="inp-box" type="text" value={product.quantity} ></input>
+              <img src={plus} alt="plus symbol" onClick={() => incrementCounter(product)}></img>
+              </div>
+              <span className="cart_product_price"> {product.currency} {product.price} </span>
             </div>
           );
         })}
