@@ -8,30 +8,35 @@ import plus from "./plus-svgrepo-com.svg";
 import "./App.css";
 
 export default function App() {
+  // Storing all products data
   const [products, setProducts] = useState([]);
+  // state to toggle minicart
   const [visible, setVisible] = useState(false);
 
 
-  useEffect(() => {
-    JSON.parse(localStorage.getItem("products")).length ? setProducts(JSON.parse(localStorage.getItem("products"))) :
-      fetch("https://dnc0cmt2n557n.cloudfront.net/products.json")
-        .then((res) => res.json())
-        .then((json) => {
-          let temp = [];
-          json.products.forEach((element) => {
-            element["quantity"] = 1;
-            temp.push(element);
-          });
-          console.log(temp);
-          setProducts(temp);
+// this will fetch products and store them in the above state
+useEffect(() => {
+  JSON.parse(localStorage.getItem("products")).length ? setProducts(JSON.parse(localStorage.getItem("products"))) :
+    fetch("https://dnc0cmt2n557n.cloudfront.net/products.json")
+      .then((res) => res.json())
+      .then((json) => {
+        let temp = [];
+        json.products.forEach((element) => {
+          element["quantity"] = 1;
+          temp.push(element);
         });
-  }, []);
+        console.log(temp);
+        setProducts(temp);
+      });
+}, []);
 
+  
+//storing data into local storage
   useEffect(() => {
     localStorage.setItem("products", JSON.stringify(products));
   }, [products]);
 
-
+//decrecement the product quantity when user clicks on "-" symbol and also prevents the quantity to be in negative values
   const decrementCounter = (user) => {
     const UpdateProduct = products.map((prod) =>
       prod.id === user.id
@@ -40,7 +45,8 @@ export default function App() {
     );
     setProducts(UpdateProduct);
   };
-
+ 
+//increment the product quantity when user clicks on "+" symbol
   const incrementCounter = (user) => {
     const UpdateProduct = products.map((prod) => {
       return prod.id === user.id ? { ...prod, quantity: prod.quantity + 1 } : prod
@@ -49,6 +55,7 @@ export default function App() {
     setProducts(UpdateProduct);
   };
 
+  //To toggle minicart on click of minicart icon
   const ToggleCart = () => {
     setVisible(!visible);
     console.log("clicked", { visible });
@@ -70,11 +77,12 @@ export default function App() {
       <header>
         <h1>Products</h1>
         <div className="cart-header">
-          <span style={{ fontWeight: "bold" }}> {products.currency}{cost} </span>
+          <span style={{ fontWeight: "bold" }}> ${cost} </span>
           <span>{item}&nbsp; items</span>
           <img className="svg-size" src={cart} alt="cart" onClick={ToggleCart} ></img>
         </div>
-        {visible ? (<MiniCart products={products} setProducts={setProducts} cost={cost} item={item} />) : ("")}
+        {/* Conditional rendering to show/hide Mini Cart based on state */}
+        {visible ? (<MiniCart products={products} setProducts={setProducts} cost={cost} item={item} visible={visible}/>) : ("")}
       </header>
 
 
