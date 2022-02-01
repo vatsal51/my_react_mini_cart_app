@@ -6,6 +6,8 @@ import minus from "./minus-svgrepo-com.svg";
 import plus from "./plus-svgrepo-com.svg";
 
 import "./App.css";
+import Header from "./Header";
+
 export default function App() {
   const [products, setProducts] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -36,8 +38,9 @@ export default function App() {
   const incrementCounter = (user) => {
     const UpdateProduct = products.map((prod) =>
       prod.id === user.id ? { ...prod, quantity: prod.quantity + 1 } : prod
-    );
-    setProducts(UpdateProduct);
+      );
+      setProducts(UpdateProduct);
+      products.lenth && localStorage.setItem("product", "qweqwf");
   };
 
   const ToggleCart = () => {
@@ -54,8 +57,11 @@ export default function App() {
   products.map((e) => {
     if (e.quantity > 0) {
       item += 1;
+       localStorage.setItem(e.title, e.quantity);
+  localStorage.setItem("item", item);
     }
   });
+
 
   let curr = "";
   products.map((e) => {
@@ -63,8 +69,14 @@ export default function App() {
       curr = e.currency;
     }
   });
+
+//  localStorage.setItem(e.title, e.quantity);
+//   localStorage.setItem("item", item);
+  // products.length && localStorage.setItem("product", products.quantity);
+  // let defultproduct= localStorage.getItem('product')?localStorage.getItem('product'):[] ; //
   return (
     <div className="ProductContainer">
+      {/* <Header  curr={curr} item={item} cost={cost} /> */}
       <header>
       <h1>Products</h1>
       <div className="cart-header">
@@ -87,7 +99,7 @@ export default function App() {
                </span>
                <div style={{display:"flex"}}>
               <img src={minus} alt="minus symbol" onClick={() => decrementCounter(product)}></img>
-              <input className="inp-box" type="text" value={product.quantity} ></input>
+              <input className="inp-box" type="text" readOnly={true} value={product.quantity} ></input>
               <img src={plus} alt="plus symbol" onClick={() => incrementCounter(product)}></img>
               </div>
               <span className="cart_product_price"> {product.currency} {product.price} </span>
