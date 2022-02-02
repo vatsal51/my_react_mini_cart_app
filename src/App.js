@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  {React, useState, useEffect } from "react";
 import MiniCart from "./MiniCart";
 import cart from "./delivery-cart-svgrepo-com.svg";
 import product2 from "./ad-product-svgrepo-com.svg";
@@ -16,7 +16,7 @@ export default function App() {
 
 // this will fetch products and store them in the above state
 useEffect(() => {
-  JSON.parse(localStorage.getItem("products")).length ? setProducts(JSON.parse(localStorage.getItem("products"))) :
+  JSON.parse(localStorage.getItem("products"))?.length ? setProducts(JSON.parse(localStorage.getItem("products"))) :
     fetch("https://dnc0cmt2n557n.cloudfront.net/products.json")
       .then((res) => res.json())
       .then((json) => {
