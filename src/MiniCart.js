@@ -1,6 +1,7 @@
 import React from "react";
-import Cross from "./remove-svgrepo-com.svg"
-function MiniCart({ setProducts, products, item, cost }) {
+import Cross from "./cross.svg"
+function MiniCart({ setProducts, products, item }) {
+
   const deleteProduct = (id) => {
     const UpdateProduct = products.map((prod) =>
       prod.id === id ? { ...prod, quantity: 0 } : prod
@@ -8,8 +9,11 @@ function MiniCart({ setProducts, products, item, cost }) {
     setProducts(UpdateProduct);
   };
 
+ 
+  
   return (
     <div className="miniCart">
+      {/* conditional rendering products if there are items in cart else show empty cart message */}
       {item ? products.map((product) => {
         if (product.quantity > 0) {
           return (
@@ -24,9 +28,7 @@ function MiniCart({ setProducts, products, item, cost }) {
           );
         }
       })
-        : "NO ITEMS IN CART"}
-
-
+        : <div className="cart_empty">NO ITEMS IN CART</div>}
     </div>
   );
 }
