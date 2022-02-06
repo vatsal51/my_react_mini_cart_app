@@ -60,7 +60,11 @@ useEffect(() => {
 					<span className="cart_image"><img className="svg-size" src={cart} alt="cart" onClick={ToggleCart} ></img></span> 
         </div>
           {/* Conditional rendering to show/hide Mini Cart based on state */}
+          {/* I would have shown animation to cart toggle, by toggling class based on state but currently I am rendering full component on state change. */}
+         
+          {/* If you want to see animation for toggle comment out Line no 66 below this and uncomment Line no 67 below I have already written CSS for the same */}
         {visible ? (<MiniCart products={products} setProducts={setProducts} cost={cost} item={item} visible={visible}/>) : ("")}
+        {/* <MiniCart products={products} setProducts={setProducts} cost={cost} item={item} visible={visible}/> */}
       </header>
 
 						<ProductContainer products={products} setProducts={setProducts}/>

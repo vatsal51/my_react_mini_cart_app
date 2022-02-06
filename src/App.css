@@ -27,6 +27,7 @@ header {
   padding: 10px;
   box-shadow: 0 3px 6px rgb(0 0 0 / 16%);
   position: relative;
+  perspective: 100px;
 }
 .ProductContainer {
   margin: auto;
@@ -85,14 +86,12 @@ header {
   vertical-align: middle;
 }
 .cart-header .caret-up {
-  vertical-align: middle;
-  transform: rotate(180deg);
+  transform: rotate(0deg);
   transition: 0.3s all ease-in-out;
 }
 .cart-header .caret-down{
-  transform: rotate(0deg);
+  transform: rotate(180deg);
   transition: 0.3s all ease-in-out;
-
 }
 .cart-header .cart_image {
   height: 100%;
@@ -110,6 +109,22 @@ header {
   max-width: 300px;
   width: 100%;
   right: 0;
+  transform: rotateX(-90deg);
+  transition: 0.5s all cubic-bezier(.8,-.5,.2,1.4);
+/* transform: rotate3d(0, 0, 1, 90deg ); */
+  transform-origin: top;
+  visibility: hidden;
+  opacity: 0;
+  animation-delay: 1000ms;
+}
+.miniCart.open{
+  transform: rotateX(0deg);
+transform: rotate3d(0, 0, 1, 0deg );
+  /* transition: 0.5s all cubic-bezier(1.4,-.5,.2,0.8); */
+  visibility: visible;
+  opacity: 1;
+  animation-delay: 1000ms;
+
 }
 
 .miniCart::before {

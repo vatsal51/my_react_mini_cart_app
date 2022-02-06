@@ -1,6 +1,6 @@
 import React from "react";
 import Cross from "./cross.svg"
-function MiniCart({ setProducts, products, item }) {
+function MiniCart({ setProducts, products, item, visible }) {
 
   const deleteProduct = (id) => {
     const UpdateProduct = products.map((prod) =>
@@ -12,7 +12,8 @@ function MiniCart({ setProducts, products, item }) {
  
   
   return (
-    <div className="miniCart">
+
+    <div className={`${visible ? "miniCart open" : "miniCart"}`} >
       {/* conditional rendering products if there are items in cart else show empty cart message */}
       {item ? products.map((product) => {
         if (product.quantity > 0) {
